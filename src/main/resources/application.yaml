@@ -1,0 +1,16 @@
+spring: 
+  dataSource:
+    username: skate_tracker
+    password: skate_tracker
+    url: jdbc:mysql://localhost:3306/skate_tracker
+   
+  
+  jpa:
+    hibernate: 
+      ddl-auto:  none
+    show-sql:  true
+    defer-datasource-initialization: true
+    
+  sql: 
+    init:
+      mode: never
