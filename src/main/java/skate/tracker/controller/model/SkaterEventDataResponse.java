@@ -6,6 +6,12 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Taking in a Skater Entity and transforming the output 
+ * to Only include name, age, and list of event names.
+ * @author Demitria Jefferson
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 public class SkaterEventDataResponse {

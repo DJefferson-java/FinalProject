@@ -1,6 +1,7 @@
 package skate.tracker.controller.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
@@ -8,6 +9,12 @@ import lombok.NoArgsConstructor;
 import skate.tracker.entity.Event;
 import skate.tracker.entity.Location;
 
+/**
+ * Taking in a Location Entity and transforming the output 
+ * to LocationDTO
+ * @author Demitria Jefferson
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 public class LocationData {
@@ -42,6 +49,7 @@ public class LocationData {
 		this.zip = zip;
 	}
 	
+	//changing the LocationData dto back to an entity
 	public Location toLocation() {
 		Location location = new Location();
 		location.setAddress(address);
@@ -57,7 +65,5 @@ public class LocationData {
 		
 		return location;
 	}
-	
-	
 
 }

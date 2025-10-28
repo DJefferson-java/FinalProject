@@ -35,6 +35,7 @@ public class SkateTrackerController {
 	@Autowired
 	private SkateTrackerService skateTrackerService;
 
+	//Creates a location
 	@PostMapping("/addLocation")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public LocationData createLocation(@RequestBody LocationData locationData) {
@@ -43,6 +44,7 @@ public class SkateTrackerController {
 
 	}
 
+	//Creates an Event
 	@PostMapping("/addEvent")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public EventData createEvent(@RequestBody EventData eventData) {
@@ -51,6 +53,7 @@ public class SkateTrackerController {
 
 	}
 
+	//Creates a skater
 	@PostMapping("/addSkater")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public SkaterData createSkater(@RequestBody SkaterData skaterData) {
@@ -59,6 +62,7 @@ public class SkateTrackerController {
 
 	}
 	
+	//Adds skater to an event
 	@PostMapping("/addSkaterEvent")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public SkaterEventDataResponse createSkaterEvent(@RequestParam Long skaterId, @RequestParam Long eventId) {
@@ -67,6 +71,7 @@ public class SkateTrackerController {
 
 	}
 
+	//Retrieves all locations
 	@GetMapping("/location")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<LocationDataResponseDto> getAllLocations() {
@@ -74,53 +79,60 @@ public class SkateTrackerController {
 		return skateTrackerService.getAllLocaitons();
 	}
 	
+	//Retrieves all skaters
 	@GetMapping("/skaters")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<SkaterEventDataResponse> getAllSkaters() {
-		log.info("Returning a list of locations");
+		log.info("Returning a list of skaters");
 		return skateTrackerService.getAllSkaters();
 	}
 	
+	//Retrieve one location ID
 	@GetMapping("/location/{locationId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public LocationDataResponseDto getLocationById(@PathVariable Long locationId) {
-		log.info("Returning a list of locations");
+		log.info("Returning location ID = {} ", locationId);
 		return skateTrackerService.getLocationById(locationId);
 	}
 	
+	//Updates a skater
 	@PutMapping("/updateSkater/{skaterId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public SkaterData updateSkater(@PathVariable Long skaterId, @RequestBody SkaterData skaterData) {
 		skaterData.setSkaterId(skaterId);
-		log.info("Updating a skater {}", skaterData);
+		log.info("Updating a skater with ID =  {}", skaterId);
 		
 		return skateTrackerService.saveSkaterData(skaterData);
 		
 	}
 
+	//Updates an event
 	@PutMapping("/updateEvent/{eventId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public EventDataReponseDto updateEvent(@PathVariable Long eventId, @RequestBody EventData eventData) {
 		eventData.setEventId(eventId);
-		log.info("Updating an event {}", eventData);
+		log.info("Updating an event with ID = {}", eventId);
 		EventData event =skateTrackerService.saveEventData(eventData);
 		return new EventDataReponseDto(event.getEventName(), event.getEventDate(), event.getDuration(), event.getLocation().getLocationName());
 		
 	}
 	
+	//Updates a location
 	@PutMapping("/updateLocation/{locationId}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public LocationDataResponseDto updateLocation(@PathVariable Long locationId, @RequestBody LocationData locationData) {
 		locationData.setLocationId(locationId);
-		//log.info("Updating an event {}", eventData);
+		log.info("Updating location with ID =  {}", locationId);
 		LocationData location =skateTrackerService.saveLocationData(locationData);
 		
 		return new LocationDataResponseDto(location.getLocationName(), location.getAddress(), location.getState(), location.getZip());
 		
 	}
 	
+	//Deletes a location and all child rows associated with it (event)
 	@DeleteMapping ("/deleteLocation/{locationId}")
 	public Map<String, String> deleteLocation(@PathVariable Long locationId) {
+		log.info("Deleting location with ID =  {}", locationId);
 		skateTrackerService.deleteLocation(locationId);
 		
 		return Map.of("message", "Location with ID=" + locationId + " was deleted sucessfully." );

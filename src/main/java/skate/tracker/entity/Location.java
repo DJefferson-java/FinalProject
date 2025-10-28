@@ -15,6 +15,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+/**
+ * Creating the Location entity to add,update,retrieve or delete.
+ * Uses JPA
+ * @author Demitria Jefferson
+ * @version 1.0
+ */
 @Data
 @Entity
 public class Location {

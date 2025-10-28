@@ -20,6 +20,12 @@ import skate.tracker.entity.Event;
 import skate.tracker.entity.Location;
 import skate.tracker.entity.Skater;
 
+/**
+ * Service for skater_tracker that will handles all requests made by the API's
+ * 
+ * @author Demitria Jefferson
+ * @version 1.0
+ */
 @Service
 public class SkateTrackerService {
 
@@ -32,6 +38,7 @@ public class SkateTrackerService {
 	@Autowired
 	private SkateTrackerDaoSkater skateTrackerDaoSkater;
 
+	// Saves the location entity to the DB
 	@Transactional(readOnly = false)
 	public LocationData saveLocationData(LocationData locationData) {
 		Location location = locationData.toLocation();
@@ -40,6 +47,7 @@ public class SkateTrackerService {
 		return new LocationData(dbLocation);
 	}
 
+	// Saves the event entity to the DB
 	@Transactional(readOnly = false)
 	public EventData saveEventData(EventData eventData) {
 		Event event = eventData.toEvent();
@@ -48,6 +56,7 @@ public class SkateTrackerService {
 		return new EventData(dbEvent);
 	}
 
+	// Saves the skater entity to the DB
 	@Transactional(readOnly = false)
 	public SkaterData saveSkaterData(SkaterData skaterData) {
 		Skater skater = skaterData.toSkater();
@@ -56,33 +65,35 @@ public class SkateTrackerService {
 		return new SkaterData(dbSkater);
 	}
 
+	// Searches the DB for skater by ID
 	private Skater findSkaterById(Long skaterId) {
 		return skateTrackerDaoSkater.findById(skaterId)
 				.orElseThrow(() -> new NoSuchElementException("Skater with ID " + skaterId + " was not found"));
 	}
 
+	// Searches the DB for event by ID
 	private Event findEventById(Long eventId) {
 		return skateTrackerDaoEvent.findById(eventId)
 				.orElseThrow(() -> new NoSuchElementException("Event with ID " + eventId + " was not found"));
 	}
 
+	// Searches the DB for location by ID
 	private Location findLocationById(Long locationId) {
 		return skateTrackerDaoLocation.findById(locationId)
 				.orElseThrow(() -> new NoSuchElementException("Location with ID " + locationId + " was not found"));
 	}
-	
+
+	// returns LocationDataResponseDto not to include events, retrieves location by
+	// ID.
 	public LocationDataResponseDto getLocationById(Long locationId) {
 		Location location = findLocationById(locationId);
-		LocationDataResponseDto locationDto = new LocationDataResponseDto();
-		locationDto.setAddress(location.getAddress());
-		locationDto.setLocationName(location.getLocationName());
-		locationDto.setState(location.getState());
-		locationDto.setCity(location.getCity());
-		locationDto.setEventNames(addEventNames(extractLocationEvents(location)));
-		return locationDto;
-	}
-	
 
+		return new LocationDataResponseDto(location.getLocationName(), location.getCity(), location.getState(),
+				location.getAddress(), addEventNames(extractLocationEvents(location)));
+	}
+
+	// returns LocationDataResponseDto including a list of events, retrieves all
+	// locations.
 	@Transactional(readOnly = true)
 	public List<LocationDataResponseDto> getAllLocaitons() {
 		List<Location> locationEntities = skateTrackerDaoLocation.findAll();
@@ -93,6 +104,8 @@ public class SkateTrackerService {
 				.toList();
 	}
 
+	// returns SkaterEventDataResponse including a list of event names, retrieves
+	// all skaters.
 	@Transactional(readOnly = true)
 	public List<SkaterEventDataResponse> getAllSkaters() {
 		List<Skater> skaters = skateTrackerDaoSkater.findAll();
@@ -101,14 +114,18 @@ public class SkateTrackerService {
 				addEventNames(extractSkaterEvents(skater)))).toList();
 	}
 
+	// Extracts skater events
 	private List<Event> extractSkaterEvents(Skater skater) {
 		return skater.getEvents().stream().toList();
 	}
 
+	// Extracts location events
 	private List<Event> extractLocationEvents(Location location) {
 		return location.getEvents().stream().toList();
 	}
 
+	// adds the event names only to a list to be return in any dto that has events
+	// as a list of names.
 	private List<String> addEventNames(List<Event> allEvents) {
 		List<String> eventNames = new ArrayList<>();
 		for (Event event : allEvents) {
@@ -117,6 +134,7 @@ public class SkateTrackerService {
 		return eventNames;
 	}
 
+	// Creates a skater_event, allowing the user to add them to the table
 	public SkaterEventDataResponse addSkaterToEvent(Long skaterId, Long eventId) {
 		Skater skater = findSkaterById(skaterId);
 		Event event = findEventById(eventId);
@@ -130,15 +148,11 @@ public class SkateTrackerService {
 				addEventNames(extractSkaterEvents(skater)));
 	}
 
-	public List<SkaterEventDataResponse> getSkaterById() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Transactional (readOnly = false)
+	// Deletes a location and the event associated with it.
+	@Transactional(readOnly = false)
 	public void deleteLocation(Long locationId) {
 		Location location = findLocationById(locationId);
-		skateTrackerDaoLocation.delete(location);	
+		skateTrackerDaoLocation.delete(location);
 	}
 
 }

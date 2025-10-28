@@ -4,7 +4,16 @@ import java.util.List;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import skate.tracker.entity.Event;
+import skate.tracker.entity.Location;
 
+/**
+ * Taking in a Location Entity and transforming the output 
+ * to Only include name, address, city, state and a list of event names.
+ * Or alternatively only returning the location without the events
+ * @author Demitria Jefferson
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 public class LocationDataResponseDto {

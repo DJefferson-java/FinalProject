@@ -1,6 +1,7 @@
 package skate.tracker.controller.model;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
 import lombok.Data;
@@ -9,6 +10,12 @@ import skate.tracker.entity.Event;
 import skate.tracker.entity.Location;
 import skate.tracker.entity.Skater;
 
+/**
+ * Taking in an Event Entity and transforming the output 
+ * into a response dto
+ * @author Demitria Jefferson
+ * @version 1.0
+ */
 @Data
 @NoArgsConstructor
 public class EventData {
@@ -33,6 +40,7 @@ public class EventData {
 
 	}
 
+	//returning the EventData dto back to an entity.
 	public Event toEvent() {
 		Event event = new Event();
 		event.setDuration(duration);
