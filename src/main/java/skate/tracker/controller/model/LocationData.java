@@ -41,7 +41,8 @@ public class LocationData {
 		}
 	}
 	
-	public LocationData(String locationName, String address, String city, String state, String zip) {
+	public LocationData(Long locationId, String locationName, String address, String city, String state, String zip) {
+		this.locationId = locationId;
 		this.locationName = locationName;
 		this.address = address;
 		this.city = city;

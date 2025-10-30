@@ -39,6 +39,15 @@ public class EventData {
 		}
 
 	}
+	
+	public EventData(Long eventId, String eventName, String eventDate, String duration, Location location) {
+	this.eventId = eventId;
+	this.eventName = eventName;
+	this.eventDate = eventDate;
+	this.duration = duration;
+	this.location = location;
+
+	}
 
 	//returning the EventData dto back to an entity.
 	public Event toEvent() {

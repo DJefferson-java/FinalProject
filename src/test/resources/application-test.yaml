@@ -1,0 +1,3 @@
+spring: 
+  dataSource:
+    url: jdbc:h2:mem:skate_tracker;MODE=MYSQL

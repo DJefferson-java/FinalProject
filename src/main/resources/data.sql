@@ -1,0 +1,15 @@
+INSERT INTO location (location_id, location_name, address, city, state, zip) VALUES (1, 'Central Skaters USA', '425 Center Lane', 'Toledo', 'Ohio', '43606');
+INSERT INTO location (location_id, location_name, address, city, state, zip) VALUES (2, 'SkateTown', '335 Skate Town Lane', 'Atlanta', 'Georgia', '30033');
+INSERT INTO location (location_id, location_name, address, city, state, zip) VALUES (3, 'Smoking Skaters USA', '7878 New Scope Rd.', 'Auburn', 'Alabama', '36801');
+INSERT INTO location (location_id, location_name, address, city, state, zip) VALUES (4, 'Something New Skate Zone', '5649 Bass Rd', 'Nashville', 'TN', '37011');
+INSERT INTO event (event_id, location_id, event_name, event_date, duration) VALUES (1, 1, 'Skate Races', '11/01/2025', '1 hour');
+INSERT INTO event (event_id, location_id, event_name, event_date, duration) VALUES (2, 2, 'Lucky Number Game', '11/01/2025', '30 min');
+INSERT INTO event (event_id, location_id, event_name, event_date, duration) VALUES (3, 3, 'Skate Limbo', '11/01/2025', '1 hour');
+INSERT INTO event (event_id, location_id, event_name, event_date, duration) VALUES (4, 4, 'Figure Skateing', '11/01/2025', '1 hour');
+INSERT INTO skater (skater_id, skater_name, skater_age) VALUES (1, 'Suzy Que', '14');
+INSERT INTO skater (skater_id, skater_name, skater_age) VALUES (2, 'John Doe', '11');
+INSERT INTO skater (skater_id, skater_name, skater_age) VALUES (3, 'Timothy Cube', '12');
+INSERT INTO skater (skater_id, skater_name, skater_age) VALUES (4, 'Dawn Newbury', '13');
+INSERT INTO skater_events (skater_id, event_id) VALUES (1, 1);
+INSERT INTO skater_events (skater_id, event_id) VALUES (1, 2);
+INSERT INTO skater_events (skater_id, event_id) VALUES (2, 3);
