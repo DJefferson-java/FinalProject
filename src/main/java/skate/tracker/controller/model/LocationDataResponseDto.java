@@ -17,21 +17,24 @@ import skate.tracker.entity.Location;
 @Data
 @NoArgsConstructor
 public class LocationDataResponseDto {
+	private Long locaitonId;
 	private String locationName;
 	private String address;
 	private String city;
 	private String state;
 	private List<String> eventNames;
 	
-	    public LocationDataResponseDto(String name, String city, String state, String address, List<String> eventNames) {
-	        this.locationName = name;
+	    public LocationDataResponseDto(Long locaitonId, String name, String city, String state, String address, List<String> eventNames) {
+	       this.locaitonId = locaitonId;
+	    	this.locationName = name;
 	        this.city = city;
 	        this.state = state;
 	        this.address = address;
 	        this.eventNames = eventNames;
 	    }
 	    
-	    public LocationDataResponseDto(String name, String city, String state, String address) {
+	    public LocationDataResponseDto(Long locaitonId, String name, String city, String state, String address) {
+	    	this.locaitonId = locaitonId;
 	        this.locationName = name;
 	        this.city = city;
 	        this.state = state;

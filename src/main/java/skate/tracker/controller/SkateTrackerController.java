@@ -86,15 +86,7 @@ public class SkateTrackerController {
 		log.info("Returning a list of skaters");
 		return skateTrackerService.getAllSkaters();
 	}
-	
-	//Retrieve one location ID
-	@GetMapping("/location/{locationId}")
-	@ResponseStatus(code = HttpStatus.OK)
-	public LocationDataResponseDto getLocationById(@PathVariable Long locationId) {
-		log.info("Returning location ID = {} ", locationId);
-		return skateTrackerService.getLocationById(locationId);
-	}
-	
+		
 	//Updates a skater
 	@PutMapping("/updateSkater/{skaterId}")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -125,7 +117,7 @@ public class SkateTrackerController {
 		log.info("Updating location with ID =  {}", locationId);
 		LocationData location =skateTrackerService.saveLocationData(locationData);
 		
-		return new LocationDataResponseDto(location.getLocationName(), location.getAddress(), location.getState(), location.getZip());
+		return new LocationDataResponseDto(location.getLocationId(), location.getLocationName(), location.getAddress(), location.getState(), location.getZip());
 		
 	}
 	
